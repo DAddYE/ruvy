@@ -1,0 +1,23 @@
+task :default do
+  libuv_dir = File.expand_path('../libuv', __FILE__)
+
+  unless File.directory?(libuv_dir)
+    STDERR.puts "ext/libuv missing, please checkout its submodule..."
+    exit 1
+  end
+
+  suffix =
+    case RbConfig::CONFIG['host_os'].downcase
+    when /darwin/
+      'dylib'
+    when /linux|bsd|sunos|solaris/
+      'so'
+    when /mingw|cygwin|mswin/
+      'dll'
+    else
+      'so'
+    end
+
+  # Make sure libuv is built...
+  sh "cd #{libuv_dir} && make libuv.#{suffix}"
+end
