@@ -9,10 +9,10 @@ Create a ruby version of node.js :D
 ## Why FFI Bindings?
 
 [Libuv](https://github.com/joyent/libuv) is a project that move very very fast and write a C wrapper
-will require a big amount of time. So instead I forked [this great project](https://github.com/neelance/ffi-gen)
-in order to generate easily an updated wrapper around [ruby ffi](https://github.com/ffi/ffi) to provide
-a direct interface to [Libuv](https://github.com/joyent/libuv). Future more I'll provide an higher level
-API in [node.js](http://nodejs.org).
+will require a big amount of time. So instead I did a custom version [this great project](https://github.com/neelance/ffi-gen)
+[here](https://github.com/daddye/ffi-gen) in order to generate easily an updated wrapper around 
+[ruby ffi](https://github.com/ffi/ffi) to provide a direct interface to [Libuv](https://github.com/joyent/libuv).
+Future more I'll provide an higher level API in [node.js](http://nodejs.org).
 
 ## Author
 
