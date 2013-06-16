@@ -3,4 +3,9 @@ gemspec
 
 gem 'yard'
 gem 'redcarpet'
-gem 'ffi-gen', require: 'ffi/gen', git: 'git@github.com:DAddYE/ffi-gen.git'
+
+if File.exist?('../ffi-gen')
+  gem 'ffi-gen', require: 'ffi/gen', path: '../ffi-gen'
+else
+  gem 'ffi-gen', require: 'ffi/gen', github: 'daddye/ffi-gen'
+end

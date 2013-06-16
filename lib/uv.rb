@@ -2845,7 +2845,7 @@ module UV
   # @return [Idle]
   # @scope class
   #
-  callback :idle_cb, [:int], Idle
+  callback :idle_cb, [Handle, :int], Idle
 
   # (Not documented)
   #
@@ -5061,7 +5061,7 @@ module UV
   # @return [Integer]
   # @scope class
   #
-  attach_function :idle_start, :uv_idle_start, [Idle, :pointer], :int
+  attach_function :idle_start, :uv_idle_start, [Idle, :idle_cb], :int
 
   # Set the repeat value in milliseconds. Note that if the repeat value is set
   # from a timer callback it does not immediately take effect. If the timer was

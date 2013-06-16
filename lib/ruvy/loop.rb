@@ -102,5 +102,9 @@ module Ruvy
       msg  = UV.strerror(err)
       [name, msg]
     end
+
+    def fileno
+      
+    end
   end
 end
