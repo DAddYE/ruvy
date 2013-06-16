@@ -5,6 +5,7 @@ require 'yard'
 
 task :check do
   sh 'git submodule update --init' unless File.directory?("ext/libuv/.git")
+  raise "Please install llvm" unless system("which llvm-config")
 end
 
 desc "Generates libuv ext"
@@ -33,7 +34,7 @@ default_config = -> (header, suffix="", extra={}) do
 end
 
 desc 'Generates FFI bindings'
-task :ffi do
+task :ffi => :check do
   FFI::Gen.generate(default_config['uv.h'])
 end
 
