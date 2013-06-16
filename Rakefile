@@ -4,8 +4,8 @@ require 'ffi/gen'
 require 'yard'
 
 task :check do
-  sh 'git submodule update --init' unless File.directory?("ext/libuv/.git")
-  raise "Please install llvm" unless system("which llvm-config")
+  sh 'git submodule update --init' unless File.exist?('ext/libuv/.git')
+  raise "Please install llvm" unless system('which llvm-config')
 end
 
 desc "Generates libuv ext"

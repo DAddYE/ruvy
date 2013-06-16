@@ -3581,7 +3581,7 @@ module UV
   # @return [Integer]
   # @scope class
   #
-  attach_function :timer_start, :uv_timer_start, [Timer, :pointer, :ulong_long, :ulong_long], :int
+  attach_function :timer_start, :uv_timer_start, [Timer, :timer_cb, :ulong_long, :ulong_long], :int
 
   # Stop the timer, and if it is repeating restart it using the repeat value
   # as the timeout. If the timer has never been started before it returns -1 and
