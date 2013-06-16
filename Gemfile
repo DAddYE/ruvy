@@ -3,5 +3,4 @@ gemspec
 
 gem 'yard'
 gem 'redcarpet'
-gem 'ffi-gen', require: 'ffi/gen', path: '/usr/src/extras/ffi-gen'
-  # github: 'DAddYE/ffi-gen'
+gem 'ffi-gen', require: 'ffi/gen', git: 'git@github.com:DAddYE/ffi-gen.git'
