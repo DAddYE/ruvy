@@ -1,5 +1,6 @@
 module Ruvy
-  class Loop
+  module Loop
+    extend self
     include Asseritions
 
     ##
@@ -27,17 +28,12 @@ module Ruvy
     #
     # @return [Integer]
     #
-    def self.run(mode=:default)
-      new(mode, UV.default_loop)
+    def run(mode=:default)
+      UV.run(default_loop, :"uv_run_#{mode}")
     end
 
-    ##
-    # Create a new event loop
-    #
-    # @see run
-    #
-    def initialize(mode=:default, l=UV.loop_new)
-      UV.run(@loop=l, :"uv_run_#{mode}")
+    def default_loop
+      @_default_loop ||= FFI::AutoPointer.new(UV.default_loop, UV.method(:loop_delete))
     end
 
     ##
@@ -49,9 +45,9 @@ module Ruvy
     # @return [NilClass]
     #
     def stop
-      UV.stop(@loop)
-      UV.loop_delete(@loop)
-      @loop = nil
+      UV.stop(default_loop)
+      UV.loop_delete(default_loop)
+      @_default_loop = nil
     end
 
     ##
@@ -68,8 +64,7 @@ module Ruvy
     # @return [Integer]
     #
     def now
-      assert_loop
-      UV.now(@loop)
+      UV.now(default_loop)
     end
 
     ##
@@ -84,8 +79,7 @@ module Ruvy
     # @return [NilClass]
     #
     def update_time
-      assert_loop
-      UV.update_time(@loop)
+      UV.update_time(default_loop)
     end
 
     ##
@@ -96,15 +90,10 @@ module Ruvy
     # @return [Array] of two elements: `[code, message]`
     #
     def last_error
-      assert_loop
-      err  = UV.last_error(@loop)
+      err  = UV.last_error(default_loop)
       name = UV.err_name(err)
       msg  = UV.strerror(err)
       [name, msg]
-    end
-
-    def fileno
-      
     end
   end
 end

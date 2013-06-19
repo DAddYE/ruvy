@@ -2,7 +2,18 @@ require 'ffi'
 
 module UV
   extend FFI::Library
+  FFI::DEBUG = 10
+
+  # ffi_lib FFI::Library::LIBC
   ffi_lib File.expand_path("../../ext/libuv/libuv.#{FFI::Platform::LIBSUFFIX}", __FILE__)
+
+  ##
+  # Memory
+  #
+  # memory management
+  attach_function :malloc, [:size_t],  :pointer
+  attach_function :free,   [:pointer], :void
+  attach_function :ntohs,  [:ushort],  :ushort
 
   ##
   # Writing FFI::Gen::Enum
